@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Image, Text, View, Button, Picker, StatusBar, TextInput, StyleSheet, } from 'react-native';
+import { Image, Text, View, Button, Picker, StatusBar, TextInput, StyleSheet } from 'react-native';
 import { Asset, AppLoading } from 'expo';
 import { StackNavigator} from 'react-navigation';
+import SvgUri from 'react-native-svg-uri';
 
 class SplashTimer extends React.Component {
   state = {
@@ -28,6 +29,7 @@ class SignIn extends React.Component {
     StatusBar.setBarStyle('light-content', true);
     return (
       <View style={styles.bodySignin}>
+        <SvgUri width="200" height="200" source={require('./assets/logo-wht.svg')} />
         <View style={styles.signInView}>
           <TextInput style={{height: 40}} placeholder="email"/>
           <TextInput secureTextEntry={true} style={{height: 40}} placeholder="password"/>
@@ -96,6 +98,9 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     padding: 10
+  },
+  logoLogin: {
+
   }
 });
 
