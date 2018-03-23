@@ -30,6 +30,7 @@ class SignIn extends React.Component {
       <View style={styles.bodySignin}>
         <View style={styles.signInView}>
           <TextInput style={{height: 40}} placeholder="email"/>
+          <TextInput secureTextEntry={true} style={{height: 40}} placeholder="password"/>
         </View>
       </View>
     );
