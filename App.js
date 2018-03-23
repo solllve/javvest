@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Image, Text, View, Button, Picker, StatusBar, TextInput, StyleSheet } from 'react-native';
+import { Image, Text, View, Button, Picker, StatusBar, TextInput, StyleSheet, Alert } from 'react-native';
 import { Asset, AppLoading } from 'expo';
 import { StackNavigator} from 'react-navigation';
 import SvgUri from 'react-native-svg-uri';
@@ -29,10 +29,10 @@ class SignIn extends React.Component {
     StatusBar.setBarStyle('light-content', true);
     return (
       <View style={styles.bodySignin}>
-        <SvgUri width="200" height="200" source={require('./assets/logo-wht.svg')} />
         <View style={styles.signInView}>
-          <TextInput style={{height: 40}} placeholder="email"/>
-          <TextInput secureTextEntry={true} style={{height: 40}} placeholder="password"/>
+          <TextInput style={styles.signInInput} placeholder="email"/>
+          <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="password"/>
+          <Button onPress={() => {Alert.alert('Sign in Action');}} color="#548DD3" title="Sign In" />
         </View>
       </View>
     );
@@ -99,8 +99,8 @@ const styles = StyleSheet.create({
     marginRight: 15,
     padding: 10
   },
-  logoLogin: {
-
+  signInInput: {
+    height: 40
   }
 });
 
