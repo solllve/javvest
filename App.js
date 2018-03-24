@@ -3,6 +3,16 @@ import { Image, Text, View, Button, Picker, StatusBar, TextInput, StyleSheet, Al
 import { Asset, AppLoading } from 'expo';
 import { StackNavigator} from 'react-navigation';
 import SvgUri from 'react-native-svg-uri';
+import t from 'tcomb-form-native';
+
+const Form = t.form.Form;
+
+const User = t.struct({
+  email: t.String,
+  username: t.maybe(t.String),
+  password: t.String,
+  terms: t.Boolean
+});
 
 class SplashTimer extends React.Component {
   state = {
@@ -27,12 +37,18 @@ class SplashTimer extends React.Component {
 class SignIn extends React.Component {
   render() {
     StatusBar.setBarStyle('light-content', true);
+    const moveFocus = () => {
+      textInput.getRenderedComponent().focus()
+    }
     return (
       <View style={styles.bodySignin}>
         <View style={styles.signInView}>
           <TextInput style={styles.signInInput} placeholder="email"/>
           <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="password"/>
           <Button onPress={() => {Alert.alert('Sign in Action');}} color="#548DD3" title="Sign In" />
+        </View>
+        <View style={styles.signInLogo}>
+          <SvgUri width="100" height="80" source={require('./assets/logo-wht.svg')} />
         </View>
       </View>
     );
@@ -94,6 +110,14 @@ const styles = StyleSheet.create({
   },
   signInView: {
     backgroundColor: '#fff',
+    alignSelf: 'stretch',
+    marginLeft: 15,
+    marginRight: 15,
+    padding: 10
+  },
+  signInLogo: {
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'stretch',
     marginLeft: 15,
     marginRight: 15,
