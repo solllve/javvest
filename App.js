@@ -30,9 +30,28 @@ class Greeting extends Component {
 
 {/* Dashboard */}
 class Dashboard extends React.Component {
+  static navigationOptions = {
+    title: 'Dashboard',
+    headerStyle: {
+      backgroundColor: '#2D2D2D',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    }
+  };
   render() {
+      const { params } = this.props.navigation.state;
+      const itemId = params ? params.itemId : null;
+      const otherParam = params ? params.otherParam : null;
     return (
-      <Text>Test</Text>
+      <View style={{flex: 1}}>
+        <Text>Details Screen</Text>
+        <Text>itemId: {JSON.stringify(itemId)}</Text>
+        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+      <View style={{flex: 3, backgroundColor: '#2D2D2D'}} />
+      <View style={{flex: 3, backgroundColor: '#D35E99'}} />
+      </View>
     )
   }
 };
@@ -60,6 +79,9 @@ class SplashTimer extends React.Component {
 
 {/* Sign In */}
 class SignIn extends React.Component {
+  static navigationOptions = {
+    title: 'Sign In',
+  };
   handleSubmit = () => {
    const value = this._form.getValue();
    console.log('value: ', value);
@@ -76,13 +98,20 @@ class SignIn extends React.Component {
     }
     return (
       <View style={styles.bodySignin}>
+        <Image style={styles.backgroundImage} source={require('./assets/background-image.png')} />
         <View style={styles.signInLogo}>
           <SvgUri width="100" height="80" source={require('./assets/logo-top-sm.svg')} />
         </View>
         <View style={styles.signInView}>
           <TextInput style={styles.signInInput} placeholder="Your email"/>
           <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="Password"/>
-          <Button onPress={() => {Alert.alert('Sign in Action');}} color="#548DD3" title="Sign In" />
+          <Button onPress={() => {
+            /* 1. Navigate to the Details route with params */
+            this.props.navigation.navigate('DashboardScreen', {
+              itemId: 86,
+              otherParam: 'anything you want here',
+            });
+          }} color="#548DD3" title="Sign In" />
         </View>
       </View>
     );
@@ -105,7 +134,6 @@ class SplashPage extends React.Component {
         />
       );
     }
-
     return (
       <View style={styles.bodySplash}>
         <Image style={styles.imageSplash} source={require('./assets/javvest-splash.png')} />
@@ -169,17 +197,40 @@ const styles = StyleSheet.create({
   signInInput: {
     height: 40,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
+    marginBottom: 5
+  },
+  dashboardView: {
+    flex: 1,
+    resizeMode: 'contain'
+  },
+  backgroundImage: {
+    flex: 1,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
   }
 });
 
+const RootStack = StackNavigator(
+  {
+    SignInPage: {
+      screen: SignIn,
+    },
+    DashboardScreen: {
+      screen: Dashboard,
+    },
+  },
+  {
+    initialRouteName: 'SignInPage',
+  },
+);
+
 {/* Main App */}
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
-    return (
-      <View style={{flex: 1}}>
-        <SplashTimer />
-      </View>
-    );
+    return <RootStack />;
   }
 }
