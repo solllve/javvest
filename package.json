@@ -27,6 +27,7 @@
     "react-native-svg-uri": "^1.2.3",
     "react-navigation": "^1.5.8",
     "react-navigation-header-buttons": "0.0.5",
+    "rn-sliding-button": "^1.1.5",
     "tcomb-form-native": "^0.6.11",
     "watchman": "^1.0.0"
   }

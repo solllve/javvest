@@ -5,6 +5,7 @@ import { StackNavigator} from 'react-navigation';
 import SvgUri from 'react-native-svg-uri';
 import t from 'tcomb-form-native';
 import { Header, Icon } from 'react-native-elements';
+import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
 
 class LogoTitle extends React.Component {
   render() {
@@ -46,11 +47,13 @@ class Dashboard extends React.Component {
       />
     ),
   };
+  onSlideRight = () => {
+      alert('Success!')
+  };
   render() {
       const { params } = this.props.navigation.state;
       const itemId = params ? params.itemId : null;
       const otherParam = params ? params.otherParam : null;
-
     return (
       <View style={{flex: 1}}>
         {/*  <Text>Details Screen</Text>
@@ -59,7 +62,19 @@ class Dashboard extends React.Component {
         <View style={styles.dashboardSumContainer}>
           <Text style={styles.dashboardSum}>$1.30</Text>
         </View>
-        <View style={{flex: 3, backgroundColor: '#D35E99'}} />
+        <View style={styles.dashboardAction}>
+        <Image style={styles.backgroundImage} source={require('./assets/background-pink-half.png')} />
+          <RNSlidingButton
+          style={{
+            width: '100%',
+            backgroundColor: null,
+          }}
+          height={150}
+          onSlidingSuccess={this.onSlideRight}
+          slideDirection={SlideDirection.RIGHT}>
+              <Image style={{position: 'relative', left: 90}} source={require('./assets/button_buy-coffee.png')} />
+          </RNSlidingButton>
+        </View>
       </View>
     )
   }
@@ -225,7 +240,21 @@ const styles = StyleSheet.create({
   },
   dashboardSum: {
     color: '#fff',
-    fontSize: 80
+    fontSize: 80,
+    fontFamily: 'Helvetica',
+    fontWeight: '100'
+  },
+  dashboardAction: {
+    flex: 3,
+    backgroundColor: '#D35E99',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  titleText: {
+    fontSize: 17,
+    fontWeight: 'normal',
+    textAlign: 'center',
+    color: '#ffffff'
   }
 });
 
