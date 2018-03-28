@@ -4,20 +4,17 @@ import { Asset, AppLoading } from 'expo';
 import { StackNavigator} from 'react-navigation';
 import SvgUri from 'react-native-svg-uri';
 import t from 'tcomb-form-native';
-import { Header } from 'react-native-elements';
+import { Header, Icon } from 'react-native-elements';
 
-{/* Splash Page */}
-const signInFormOptions = {
-  fields: {
-    email: {
-      error: 'No such email exists'
-    },
-    password: {
-      error: 'Incorrect password'
-    }
-  },
-  stylesheet: styles,
-};
+class LogoTitle extends React.Component {
+  render() {
+    return (
+      <View style={styles.signInLogo}>
+        <SvgUri width="65" height="30" source={require('./assets/logo-top-sm.svg')} />
+      </View>
+    );
+  }
+}
 
 {/* Sign in Greeting */}
 class Greeting extends Component {
@@ -31,26 +28,38 @@ class Greeting extends Component {
 {/* Dashboard */}
 class Dashboard extends React.Component {
   static navigationOptions = {
-    title: 'Dashboard',
+    headerTitle: <LogoTitle />,
     headerStyle: {
       backgroundColor: '#2D2D2D',
+      borderBottomWidth: 0
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
       fontWeight: 'bold',
-    }
+    },
+    headerLeft: <Icon name="menu" color="#fff" size={25} onPress={ () => alert('This is a button!') } />,
+    headerRight: (
+      <Button
+        onPress={() => alert('This is a button!')}
+        title="Start Ups"
+        color="#fff"
+      />
+    ),
   };
   render() {
       const { params } = this.props.navigation.state;
       const itemId = params ? params.itemId : null;
       const otherParam = params ? params.otherParam : null;
+
     return (
       <View style={{flex: 1}}>
-        <Text>Details Screen</Text>
-        <Text>itemId: {JSON.stringify(itemId)}</Text>
-        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <View style={{flex: 3, backgroundColor: '#2D2D2D'}} />
-      <View style={{flex: 3, backgroundColor: '#D35E99'}} />
+        {/*  <Text>Details Screen</Text>
+          <Text>itemId: {JSON.stringify(itemId)}</Text>
+          <Text>otherParam: {JSON.stringify(otherParam)}</Text> */}
+        <View style={styles.dashboardSumContainer}>
+          <Text style={styles.dashboardSum}>$1.30</Text>
+        </View>
+        <View style={{flex: 3, backgroundColor: '#D35E99'}} />
       </View>
     )
   }
@@ -79,9 +88,7 @@ class SplashTimer extends React.Component {
 
 {/* Sign In */}
 class SignIn extends React.Component {
-  static navigationOptions = {
-    title: 'Sign In',
-  };
+  static navigationOptions = { title: 'Sign Out', header: null };
   handleSubmit = () => {
    const value = this._form.getValue();
    console.log('value: ', value);
@@ -99,9 +106,7 @@ class SignIn extends React.Component {
     return (
       <View style={styles.bodySignin}>
         <Image style={styles.backgroundImage} source={require('./assets/background-image.png')} />
-        <View style={styles.signInLogo}>
-          <SvgUri width="100" height="80" source={require('./assets/logo-top-sm.svg')} />
-        </View>
+        <SvgUri width="125" source={require('./assets/logo-top-sm.svg')} />
         <View style={styles.signInView}>
           <TextInput style={styles.signInInput} placeholder="Your email"/>
           <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="Password"/>
@@ -156,7 +161,8 @@ class SplashPage extends React.Component {
 const styles = StyleSheet.create({
   bodySignin: {
     flex: 1,
-    backgroundColor: '#548DD3',
+    alignItems:'center',
+    justifyContent:'center',
   },
   signInButton: {
     flex: 1
@@ -182,7 +188,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginLeft: 15,
     marginRight: 15,
-    marginTop: 45,
     padding: 10
   },
   signInLogo: {
@@ -211,6 +216,16 @@ const styles = StyleSheet.create({
     height: '100%',
     top: 0,
     left: 0,
+  },
+  dashboardSumContainer: {
+    flex: 3,
+    backgroundColor: '#2D2D2D',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  dashboardSum: {
+    color: '#fff',
+    fontSize: 80
   }
 });
 
@@ -226,6 +241,9 @@ const RootStack = StackNavigator(
   {
     initialRouteName: 'SignInPage',
   },
+  {
+    headerMode: 'screen'
+  }
 );
 
 {/* Main App */}
