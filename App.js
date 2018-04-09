@@ -19,59 +19,10 @@ import BuyACoffee from './src/modals/BuyACoffee';
 {/* Actions */}
 import SlideButtonCoffee from './src/buttons/SlideButtonCoffee';
 
+{/* Pages */}
 import Dashboard from './src/pages/Dashboard';
+import SignIn from './src/pages/SignIn';
 
-{/* Splash Page Timer */}
-class SplashTimer extends React.Component {
-  state = {
-    ready: false,
-  }
-  componentDidMount () {
-    setTimeout(() => {
-      this.setState({ ready: true })
-    }, 5000)
-  }
-  render() {
-    if (this.state.ready === false) {
-      return <SplashPage />
-    }
-    return (
-      <SignIn />
-    );
-  }
-}
-{/* Sign In */}
-class SignIn extends React.Component {
-  static navigationOptions = { title: 'Sign Out', header: null };
-  handleSubmit = () => {
-   const value = this._form.getValue();
-   console.log('value: ', value);
- }
-  render() {
-    StatusBar.setBarStyle('light-content', true);
-    const moveFocus = () => {
-      textInput.getRenderedComponent().focus()
-    }
-    return (
-      <View style={styles.bodySignin}>
-        <Image style={styles.backgroundImage} source={require('./assets/background-image.png')} />
-        <SvgUri width="125" source={require('./assets/logo-top-sm.svg')} />
-        <View style={styles.signInView}>
-          <TextInput style={styles.signInInput} placeholder="Your email"/>
-          <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="Password"/>
-          <Button onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('DashboardScreen', {
-              itemId: 86,
-              otherParam: 'Dashboard',
-            });
-
-          }} color="#548DD3" title="Sign In" />
-        </View>
-      </View>
-    );
-  }
-}
 {/* Splash Page */}
 class SplashPage extends React.Component {
   state = {
