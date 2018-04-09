@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import { Image, Text, View, Picker, Button, StatusBar, TextInput, StyleSheet, Alert, Animated, TouchableHighlight } from 'react-native';
 import { Asset, AppLoading } from 'expo';
-import { StackNavigator, NavigationActions, DrawerNavigator} from 'react-navigation';
 import SvgUri from 'react-native-svg-uri';
 import { Header, Icon} from 'react-native-elements';
 import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
@@ -11,10 +10,6 @@ import styles from '../styles';
 {/* Components */}
 import LogoTitle from '../header/LogoTitle';
 import MenuIcon from '../header/MenuIcon';
-
-{/* Modals */}
-import BuyACoffee from '../modals/BuyACoffee';
-
 {/* Actions */}
 import SlideButtonCoffee from '../buttons/SlideButtonCoffee';
 
