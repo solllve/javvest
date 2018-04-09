@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { Image, Text, View, Picker, Button, StatusBar, TextInput, StyleSheet, Alert } from 'react-native';
+import { Image, Text, View, Picker, Button, StatusBar, TextInput, StyleSheet, Alert, Animated } from 'react-native';
 import { Asset, AppLoading } from 'expo';
-import { StackNavigator} from 'react-navigation';
+import { StackNavigator, NavigationActions} from 'react-navigation';
 import SvgUri from 'react-native-svg-uri';
 import t from 'tcomb-form-native';
-import { Header, Icon } from 'react-native-elements';
+import { Header, Icon} from 'react-native-elements';
 import {RNSlidingButton, SlideDirection} from 'rn-sliding-button';
 
 class LogoTitle extends React.Component {
@@ -13,6 +13,39 @@ class LogoTitle extends React.Component {
       <View style={styles.signInLogo}>
         <SvgUri width="65" height="30" source={require('./assets/logo-top-sm.svg')} />
       </View>
+    );
+  }
+}
+
+class MenuIcon extends React.Component {
+  static navigationOptions = { title: 'Menu Icon', header: null };
+  render() {
+    return (
+      <View style={styles.menuIcon}>
+        <Icon onPress={() => this.props.navigation.navigate('SignInPage')} name="menu" color="#fff" size={25} />
+      </View>
+    );
+  }
+}
+
+class SlideButtonCoffee extends React.Component {
+  onSlideRight = () => {
+      alert('test');
+  };
+  render() {
+    return (
+      <RNSlidingButton
+        style={{
+          alignSelf: 'stretch',
+          backgroundColor: null
+        }}
+        height={121}
+        onSlidingSuccess={this.onSlideRight}
+        slideDirection={SlideDirection.RIGHT}>
+        <View style={styles.titleText}>
+          <SvgUri width="204" source={require('./assets/buy-a-coffee.svg')} />
+        </View>
+      </RNSlidingButton>
     );
   }
 }
@@ -28,32 +61,13 @@ class Greeting extends Component {
 
 {/* Dashboard */}
 class Dashboard extends React.Component {
-  static navigationOptions = {
-    headerTitle: <LogoTitle />,
-    headerStyle: {
-      backgroundColor: '#2D2D2D',
-      borderBottomWidth: 0
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-    headerLeft: <Icon name="menu" color="#fff" size={25} onPress={ () => alert('This is a button!') } />,
-    headerRight: (
-      <Button
-        onPress={() => alert('This is a button!')}
-        title="Start Ups"
-        color="#fff"
-      />
-    ),
-  };
-  onSlideRight = () => {
-      alert('Success!')
+  state = {
+    value: 0.2
   };
   render() {
-      const { params } = this.props.navigation.state;
-      const itemId = params ? params.itemId : null;
-      const otherParam = params ? params.otherParam : null;
+    const { params } = this.props.navigation.state;
+    const itemId = params ? params.itemId : null;
+    const otherParam = params ? params.otherParam : null;
     return (
       <View style={{flex: 1}}>
         {/*  <Text>Details Screen</Text>
@@ -61,19 +75,11 @@ class Dashboard extends React.Component {
           <Text>otherParam: {JSON.stringify(otherParam)}</Text> */}
         <View style={styles.dashboardSumContainer}>
           <Text style={styles.dashboardSum}>$1.30</Text>
+          <Text style={styles.dashboardSumLabel}>Funds Raised</Text>
         </View>
         <View style={styles.dashboardAction}>
         <Image style={styles.backgroundImage} source={require('./assets/background-pink-half.png')} />
-          <RNSlidingButton
-          style={{
-            width: '100%',
-            backgroundColor: null,
-          }}
-          height={150}
-          onSlidingSuccess={this.onSlideRight}
-          slideDirection={SlideDirection.RIGHT}>
-              <Image style={{position: 'relative', left: 90}} source={require('./assets/button_buy-coffee.png')} />
-          </RNSlidingButton>
+        <SlideButtonCoffee />
         </View>
       </View>
     )
@@ -109,11 +115,6 @@ class SignIn extends React.Component {
    console.log('value: ', value);
  }
   render() {
-    const Form = t.form.Form;
-    const User = t.struct({
-      email: t.String,
-      password: t.String
-    });
     StatusBar.setBarStyle('light-content', true);
     const moveFocus = () => {
       textInput.getRenderedComponent().focus()
@@ -129,8 +130,9 @@ class SignIn extends React.Component {
             /* 1. Navigate to the Details route with params */
             this.props.navigation.navigate('DashboardScreen', {
               itemId: 86,
-              otherParam: 'anything you want here',
+              otherParam: 'Dashboard',
             });
+
           }} color="#548DD3" title="Sign In" />
         </View>
       </View>
@@ -172,6 +174,46 @@ class SplashPage extends React.Component {
 
   }
 }
+
+const RootStack = StackNavigator(
+  {
+    MenuIconPage: {
+      screen: MenuIcon
+    },
+    SignInPage: {
+      screen: SignIn,
+    },
+    DashboardScreen: {
+      screen: Dashboard,
+    },
+  },
+  {
+    initialRouteName: 'SignInPage',
+    navigationOptions: {
+      headerTitle: <LogoTitle />,
+      headerStyle: {
+        backgroundColor: '#2D2D2D',
+        borderBottomWidth: 0
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      headerLeft: <MenuIcon />,
+      headerRight: (
+        <Button
+          buttonStyle={{backgroundColor: null, background: null}}
+          onPress={() => alert('This is a button!')}
+          title="Charities"
+          underlayColor="transparent"
+        />
+      ),
+    },
+  },
+  {
+    headerMode: 'screen'
+  }
+);
 
 const styles = StyleSheet.create({
   bodySignin: {
@@ -241,7 +283,11 @@ const styles = StyleSheet.create({
   dashboardSum: {
     color: '#fff',
     fontSize: 80,
-    fontFamily: 'Helvetica',
+    fontWeight: '100'
+  },
+  dashboardSumLabel: {
+    color: '#818181',
+    fontSize: 14,
     fontWeight: '100'
   },
   dashboardAction: {
@@ -250,30 +296,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  menuIcon: {
+    left: 10
+  },
   titleText: {
-    fontSize: 17,
-    fontWeight: 'normal',
-    textAlign: 'center',
-    color: '#ffffff'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
-
-const RootStack = StackNavigator(
-  {
-    SignInPage: {
-      screen: SignIn,
-    },
-    DashboardScreen: {
-      screen: Dashboard,
-    },
-  },
-  {
-    initialRouteName: 'SignInPage',
-  },
-  {
-    headerMode: 'screen'
-  }
-);
 
 {/* Main App */}
 export default class App extends React.Component {
