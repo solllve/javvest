@@ -22,7 +22,7 @@ class MenuIcon extends React.Component {
   render() {
     return (
       <View style={styles.menuIcon}>
-        <Icon onPress={() => this.props.navigation.navigate('SignInPage')} name="menu" color="#fff" size={25} />
+        <Icon onPress={() => alert('This is a button!')} name="menu" color="#fff" size={25} />
       </View>
     );
   }
@@ -59,8 +59,37 @@ class Greeting extends Component {
   }
 }
 
+class ModalScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="Dismiss"
+        />
+      </View>
+    );
+  }
+}
+
+
 {/* Dashboard */}
 class Dashboard extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
+
+    return {
+      headerLeft: <MenuIcon />,
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate('MyModal')}
+          title="Charities"
+          color="#fff"
+        />
+      ),
+    };
+  };
   state = {
     value: 0.2
   };
@@ -96,7 +125,6 @@ class SplashTimer extends React.Component {
       this.setState({ ready: true })
     }, 5000)
   }
-
   render() {
     if (this.state.ready === false) {
       return <SplashPage />
@@ -177,11 +205,11 @@ class SplashPage extends React.Component {
 
 const RootStack = StackNavigator(
   {
-    MenuIconPage: {
-      screen: MenuIcon
-    },
     SignInPage: {
       screen: SignIn,
+    },
+    MyModal: {
+      screen: ModalScreen,
     },
     DashboardScreen: {
       screen: Dashboard,
@@ -199,18 +227,10 @@ const RootStack = StackNavigator(
       headerTitleStyle: {
         fontWeight: 'bold',
       },
-      headerLeft: <MenuIcon />,
-      headerRight: (
-        <Button
-          buttonStyle={{backgroundColor: null, background: null}}
-          onPress={() => alert('This is a button!')}
-          title="Charities"
-          underlayColor="transparent"
-        />
-      ),
     },
   },
   {
+    mode: 'modal',
     headerMode: 'screen'
   }
 );
