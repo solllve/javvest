@@ -1,6 +1,6 @@
 {/* Main Imports*/}
 import React, {Component} from 'react';
-import { Image, Text, View, Picker, Button, StatusBar, TextInput, StyleSheet, Alert, Animated, TouchableHighlight } from 'react-native';
+import { Image, Text, View, Picker, Button, StatusBar, TextInput, StyleSheet, Alert, Animated, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { Asset, AppLoading } from 'expo';
 import SvgUri from 'react-native-svg-uri';
 import { Header, Icon} from 'react-native-elements';
@@ -16,9 +16,12 @@ import SlideButtonCoffee from '../buttons/SlideButtonCoffee';
 {/* Dashboard */}
 class Dashboard extends React.Component {
   static navigationOptions = ({ navigation }) => {
-    const params = navigation.state.params || {};
     return {
-      headerLeft: <MenuIcon />,
+      headerLeft: (
+        <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+          <MenuIcon />
+        </TouchableOpacity>
+      ),
       headerRight: (
         <Button
           onPress={() => navigation.navigate('MyModal')}

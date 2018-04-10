@@ -9,6 +9,7 @@ import BuyACoffee from '../modals/BuyACoffee';
 {/* Pages */}
 import Dashboard from '../pages/Dashboard';
 import SignIn from '../pages/SignIn';
+import DrawerNav from '../navigation/DrawerNav';
 
 {/* Navigation */}
 const PrimaryNav = StackNavigator(
@@ -22,6 +23,9 @@ const PrimaryNav = StackNavigator(
     DashboardScreen: {
       screen: Dashboard,
     },
+    Drawer: {
+      screen: DrawerNav,
+    }
   },
   {
     initialRouteName: 'SignInPage',
@@ -42,4 +46,5 @@ const PrimaryNav = StackNavigator(
     headerMode: 'screen'
   }
 );
+
 export default PrimaryNav;

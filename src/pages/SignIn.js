@@ -27,7 +27,7 @@ class SignIn extends React.Component {
           <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="Password"/>
           <Button onPress={() => {
             /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('DashboardScreen', {
+            this.props.navigation.navigate('Drawer', {
               itemId: 86,
               otherParam: 'Dashboard',
             });
