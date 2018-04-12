@@ -8,7 +8,7 @@ class MenuIcon extends React.Component {
   render() {
     return (
       <View style={styles.menuIcon}>
-          <Icon name="menu" color="#fff" size={25} />
+          <Text>Menu</Text>
       </View>
     );
   }

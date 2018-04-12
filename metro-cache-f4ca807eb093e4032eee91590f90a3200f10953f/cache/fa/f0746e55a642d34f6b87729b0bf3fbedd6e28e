@@ -1,0 +1,74 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var _jsxFileName = "/Users/caseyhald/Documents/sites/javvest/src/navigation/PrimaryNav.js";
+
+  var _react = _require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _expo = _require(_dependencyMap[1], "expo");
+
+  var _reactNavigation = _require(_dependencyMap[2], "react-navigation");
+
+  var _LogoTitle = _require(_dependencyMap[3], "../header/LogoTitle");
+
+  var _LogoTitle2 = _interopRequireDefault(_LogoTitle);
+
+  var _MenuIcon = _require(_dependencyMap[4], "../header/MenuIcon");
+
+  var _MenuIcon2 = _interopRequireDefault(_MenuIcon);
+
+  var _BuyACoffee = _require(_dependencyMap[5], "../modals/BuyACoffee");
+
+  var _BuyACoffee2 = _interopRequireDefault(_BuyACoffee);
+
+  var _SignIn = _require(_dependencyMap[6], "../pages/SignIn");
+
+  var _SignIn2 = _interopRequireDefault(_SignIn);
+
+  var _Dashboard = _require(_dependencyMap[7], "../pages/Dashboard");
+
+  var _Dashboard2 = _interopRequireDefault(_Dashboard);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  {}
+  {}
+  {}
+  {}
+  var PrimaryNav = (0, _reactNavigation.StackNavigator)({
+    SignInPage: {
+      screen: _SignIn2.default
+    },
+    MyModal: {
+      screen: _BuyACoffee2.default
+    },
+    DashboardPage: {
+      screen: _Dashboard2.default
+    }
+  }, {
+    initialRouteName: 'SignInPage',
+    navigationOptions: {
+      headerTitle: _react2.default.createElement(_LogoTitle2.default, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 29
+        }
+      }),
+      headerStyle: {
+        backgroundColor: '#2D2D2D',
+        borderBottomWidth: 0
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold'
+      }
+    }
+  }, {
+    headerMode: 'none',
+    mode: 'modal'
+  });
+  exports.default = PrimaryNav;
+});

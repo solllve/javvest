@@ -1,0 +1,320 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/Users/caseyhald/Documents/sites/javvest/src/pages/Dashboard.js";
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _expo = _require(_dependencyMap[3], "expo");
+
+  var _reactNativeSvgUri = _require(_dependencyMap[4], "react-native-svg-uri");
+
+  var _reactNativeSvgUri2 = _interopRequireDefault(_reactNativeSvgUri);
+
+  var _reactNativeElements = _require(_dependencyMap[5], "react-native-elements");
+
+  var _rnSlidingButton = _require(_dependencyMap[6], "rn-sliding-button");
+
+  var _styles = _require(_dependencyMap[7], "../styles");
+
+  var _styles2 = _interopRequireDefault(_styles);
+
+  var _reactNativeDrawerMenu = _require(_dependencyMap[8], "react-native-drawer-menu");
+
+  var _reactNativeDrawerMenu2 = _interopRequireDefault(_reactNativeDrawerMenu);
+
+  var _LogoTitle = _require(_dependencyMap[9], "../header/LogoTitle");
+
+  var _LogoTitle2 = _interopRequireDefault(_LogoTitle);
+
+  var _MenuIcon = _require(_dependencyMap[10], "../header/MenuIcon");
+
+  var _MenuIcon2 = _interopRequireDefault(_MenuIcon);
+
+  var _SlideButtonCoffee = _require(_dependencyMap[11], "../buttons/SlideButtonCoffee");
+
+  var _SlideButtonCoffee2 = _interopRequireDefault(_SlideButtonCoffee);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Dashboard: {
+      displayName: "Dashboard"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/Users/caseyhald/Documents/sites/javvest/src/pages/Dashboard.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  {}
+  {}
+  {}
+  {}
+
+  var Dashboard = _wrapComponent("Dashboard")((_temp = _class = function (_React$Component) {
+    _inherits(Dashboard, _React$Component);
+
+    function Dashboard() {
+      _classCallCheck(this, Dashboard);
+
+      return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+    }
+
+    _createClass(Dashboard, [{
+      key: "render",
+      value: function render() {
+        var params = this.props.navigation.state.params;
+        var itemId = params ? params.itemId : null;
+        var otherParam = params ? params.otherParam : null;
+
+        var drawerContent = _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: _styles2.default.drawerContent,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 40
+            }
+          },
+          _react3.default.createElement(_reactNative.View, {
+            style: _styles2.default.leftTop,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 41
+            }
+          }),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: _styles2.default.leftBottom,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 42
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 43
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 43
+                  }
+                },
+                "Drawer Content"
+              )
+            )
+          )
+        );
+
+        var customStyles = {
+          drawer: {
+            shadowColor: '#000',
+            shadowOpacity: 0.4,
+            shadowRadius: 10
+          },
+          mask: {},
+          main: {}
+        };
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: {
+              flex: 1
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 57
+            }
+          },
+          _react3.default.createElement(
+            _reactNativeDrawerMenu2.default,
+            {
+              style: _styles2.default.container,
+              drawerWidth: 300,
+              drawerContent: drawerContent,
+              type: _reactNativeDrawerMenu2.default.types.Overlay,
+              customStyles: {
+                drawer: _styles2.default.drawer
+              },
+              drawerPosition: _reactNativeDrawerMenu2.default.positions.left,
+              onDrawerOpen: function onDrawerOpen() {
+                console.log('Drawer is opened');
+              },
+              onDrawerClose: function onDrawerClose() {
+                console.log('Drawer is closed');
+              },
+              easingFunc: _reactNative.Easing.ease,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 58
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: _styles2.default.content,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 69
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 70
+                  }
+                },
+                Object.values(_reactNativeDrawerMenu2.default.positions).join(' ')
+              ),
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 71
+                  }
+                },
+                Object.values(_reactNativeDrawerMenu2.default.types).join(' ')
+              )
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: _styles2.default.dashboardSumContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 77
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: _styles2.default.dashboardSum,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 78
+                }
+              },
+              "$1.30"
+            ),
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: _styles2.default.dashboardSumLabel,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 79
+                }
+              },
+              "Funds Raised"
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: _styles2.default.dashboardAction,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 81
+              }
+            },
+            _react3.default.createElement(_reactNative.Image, {
+              style: _styles2.default.backgroundImage,
+              source: _require(_dependencyMap[12], '../../assets/background-pink-half.png'),
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 82
+              }
+            }),
+            _react3.default.createElement(_SlideButtonCoffee2.default, {
+              navigation: this.props.navigation,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 83
+              }
+            })
+          )
+        );
+      }
+    }]);
+
+    return Dashboard;
+  }(_react3.default.Component), _class.navigationOptions = function (_ref) {
+    var navigation = _ref.navigation;
+    return {
+      headerLeft: _react3.default.createElement(
+        _reactNative.TouchableOpacity,
+        {
+          onPress: function onPress() {
+            return navigation.navigate('DrawerOpen');
+          },
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 22
+          }
+        },
+        _react3.default.createElement(_MenuIcon2.default, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 23
+          }
+        })
+      ),
+      headerRight: _react3.default.createElement(_reactNative.Button, {
+        onPress: function onPress() {
+          return navigation.navigate('MyModal');
+        },
+        title: "Charities",
+        color: "#fff",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 27
+        }
+      })
+    };
+  }, _temp));
+
+  ;
+  exports.default = Dashboard;
+});

@@ -86,5 +86,20 @@ export default StyleSheet.create({
   titleText: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  sideContainer: {
+    flex: 1,
+    backgroundColor: '#1D1D1D',
+  },
+  navItemStyle: {
+    padding: 10,
+    color: '#fff'
+  },
+  sectionHeadingStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+  },
+  footerContainer: {
+    padding: 20,
   }
 });

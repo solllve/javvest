@@ -8,7 +8,9 @@ import styles from '../styles';
 
 {/* Sign In */}
 class SignIn extends React.Component {
-  static navigationOptions = { title: 'Sign Out', header: null };
+  static navigationOptions = {
+    header: null
+  }
   handleSubmit = () => {
    const value = this._form.getValue();
    console.log('value: ', value);
@@ -27,7 +29,7 @@ class SignIn extends React.Component {
           <TextInput style={styles.signInInput} secureTextEntry={true} placeholder="Password"/>
           <Button onPress={() => {
             /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Drawer', {
+            this.props.navigation.navigate('DashboardPage', {
               itemId: 86,
               otherParam: 'Dashboard',
             });

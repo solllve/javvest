@@ -7,9 +7,8 @@ import MenuIcon from '../header/MenuIcon';
 {/* Modals */}
 import BuyACoffee from '../modals/BuyACoffee';
 {/* Pages */}
-import Dashboard from '../pages/Dashboard';
 import SignIn from '../pages/SignIn';
-import DrawerNav from '../navigation/DrawerNav';
+import Dashboard from '../pages/Dashboard';
 
 {/* Navigation */}
 const PrimaryNav = StackNavigator(
@@ -20,11 +19,8 @@ const PrimaryNav = StackNavigator(
     MyModal: {
       screen: BuyACoffee,
     },
-    DashboardScreen: {
+    DashboardPage: {
       screen: Dashboard,
-    },
-    Drawer: {
-      screen: DrawerNav,
     }
   },
   {
@@ -42,8 +38,8 @@ const PrimaryNav = StackNavigator(
     },
   },
   {
-    mode: 'modal',
-    headerMode: 'screen'
+    headerMode: 'none',
+    mode: 'modal'
   }
 );
 

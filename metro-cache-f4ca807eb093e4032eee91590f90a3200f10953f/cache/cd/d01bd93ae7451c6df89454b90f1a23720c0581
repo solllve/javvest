@@ -1,0 +1,589 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/Users/caseyhald/Documents/sites/javvest/node_modules/react-native-drawer-menu/Drawer/index.js";
+
+  var _propTypes = _require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[3], "react-native");
+
+  var _Animation = _require(_dependencyMap[4], "./Animation");
+
+  var _Animation2 = _interopRequireDefault(_Animation);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Drawer: {
+      displayName: "Drawer"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/Users/caseyhald/Documents/sites/javvest/node_modules/react-native-drawer-menu/Drawer/index.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var _Dimensions$get = _reactNative.Dimensions.get('window'),
+      width = _Dimensions$get.width;
+
+  var positions = {
+    Left: 'left',
+    Right: 'right',
+    Both: 'both'
+  };
+  var types = {
+    Overlay: 'overlay',
+    Default: 'default',
+    Replace: 'replace'
+  };
+  var MAX = {
+    maskAlpha: 0.5
+  };
+
+  var Drawer = _wrapComponent("Drawer")((_temp = _class = function (_Component) {
+    _inherits(Drawer, _Component);
+
+    function Drawer(props) {
+      _classCallCheck(this, Drawer);
+
+      var _this = _possibleConstructorReturn(this, (Drawer.__proto__ || Object.getPrototypeOf(Drawer)).call(this, props));
+
+      _this.state = {
+        showMask: false
+      };
+      return _this;
+    }
+
+    _createClass(Drawer, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        var _props = this.props,
+            drawerWidth = _props.drawerWidth,
+            drawerPosition = _props.drawerPosition,
+            maskAlpha = _props.maskAlpha;
+        this.isLeft = drawerPosition === positions.Both || drawerPosition === positions.Left;
+        this.isRight = drawerPosition === positions.Both || drawerPosition === positions.Right;
+        this.MAX_DX = drawerWidth > width ? width : drawerWidth;
+        this.MAX_ALPHA = maskAlpha > MAX.maskAlpha ? MAX.maskAlpha : maskAlpha;
+        this.styles = {
+          leftDrawer: {
+            style: {
+              top: 0,
+              bottom: 0,
+              left: -this.MAX_DX,
+              right: width
+            }
+          },
+          rightDrawer: {
+            style: {
+              top: 0,
+              bottom: 0,
+              left: width,
+              right: -this.MAX_DX
+            }
+          },
+          main: {
+            style: {
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0
+            }
+          },
+          mask: {
+            style: {
+              backgroundColor: 'rgba(0, 0, 0, 0)'
+            }
+          }
+        };
+        this.inAnimation = false;
+        this.isLeftOpen = false;
+        this.isRightOpen = false;
+        this.isLeftActive = false;
+        this.isRightActive = false;
+        this._pan = _reactNative.PanResponder.create({
+          onStartShouldSetPanResponder: this._onStartShouldSetPanResponder.bind(this),
+          onStartShouldSetPanResponderCapture: this._onStartShouldCapture.bind(this),
+          onMoveShouldSetPanResponder: this._onMoveShouldSetPanResponder.bind(this),
+          onMoveShouldSetPanResponderCapture: this._onMoveShouldCapture.bind(this),
+          onPanResponderTerminationRequest: this._handleTerminationRequest.bind(this),
+          onPanResponderGrant: this._handlePanResponderGrant.bind(this),
+          onPanResponderMove: this._handlePanResponderMove.bind(this),
+          onPanResponderRelease: this._handlePanResponderEnd.bind(this),
+          onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
+          onShouldBlockNativeResponder: this._shouldBlockNativeResponder.bind(this)
+        });
+        this._updateNativeStyles = this._updateNativeStyles.bind(this);
+        this._handleMainBoardPress = this._handleMainBoardPress.bind(this);
+        this._drawerDidClose = this._drawerDidClose.bind(this);
+        this._drawerDidOpen = this._drawerDidOpen.bind(this);
+        this._bindDrawerRef = this._bindDrawerRef.bind(this);
+        this._maskRefBind = this._maskRefBind.bind(this);
+        this._mainRefBind = this._mainRefBind.bind(this);
+        this._leftDrawerRefBind = this._leftDrawerRefBind.bind(this);
+        this._rightDrawerRefBind = this._rightDrawerRefBind.bind(this);
+        this.openDrawer = this.openDrawer.bind(this);
+        this.closeDrawer = this.closeDrawer.bind(this);
+      }
+    }, {
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this._updateNativeStyles(0);
+      }
+    }, {
+      key: "_onStartShouldCapture",
+      value: function _onStartShouldCapture(evt, gestureState) {
+        return this.props.startCapture;
+      }
+    }, {
+      key: "_onMoveShouldCapture",
+      value: function _onMoveShouldCapture(evt, gestureState) {
+        return this.props.moveCapture;
+      }
+    }, {
+      key: "_shouldBlockNativeResponder",
+      value: function _shouldBlockNativeResponder(evt, gestureState) {
+        return true;
+      }
+    }, {
+      key: "_handleTerminationRequest",
+      value: function _handleTerminationRequest() {
+        return true;
+      }
+    }, {
+      key: "_onStartShouldSetPanResponder",
+      value: function _onStartShouldSetPanResponder(evt, gestureState) {
+        var _props2 = this.props,
+            disabled = _props2.disabled,
+            leftDisabled = _props2.leftDisabled,
+            rightDisabled = _props2.rightDisabled;
+        var isOpen = this.isLeftOpen || this.isRightOpen;
+        var singleDisabled = this.isLeftOpen && leftDisabled || this.isRightOpen && rightDisabled;
+        if (isOpen && !this.inAnimation && !disabled && !singleDisabled) return true;
+        return false;
+      }
+    }, {
+      key: "_onMoveShouldSetPanResponder",
+      value: function _onMoveShouldSetPanResponder(evt, gestureState) {
+        if (this.props.disabled || this.props.responderNegotiate && this.props.responderNegotiate(evt, gestureState) === false) return false;
+
+        if (this._touchPositionCheck(gestureState)) {
+          this.props.showMask && !this.state.showMask && this.setState({
+            showMask: true
+          });
+          return true;
+        }
+
+        return false;
+      }
+    }, {
+      key: "_handlePanResponderGrant",
+      value: function _handlePanResponderGrant(evt, gestureState) {}
+    }, {
+      key: "_handlePanResponderMove",
+      value: function _handlePanResponderMove(evt, gestureState) {
+        var dx = gestureState.dx;
+
+        if (dx > 0 && dx <= this.MAX_DX) {
+          if (this.isRight && this.isRightOpen) return this._updateNativeStyles(-this.MAX_DX + dx);
+          if (this.isLeft && !this.isLeftOpen) this._updateNativeStyles(dx);
+        } else if (dx < 0 && dx >= -this.MAX_DX) {
+          if (this.isLeft && this.isLeftOpen) return this._updateNativeStyles(this.MAX_DX + dx);
+          if (this.isRight && !this.isRightOpen) this._updateNativeStyles(dx);
+        }
+      }
+    }, {
+      key: "_handlePanResponderEnd",
+      value: function _handlePanResponderEnd(evt, gestureState) {
+        var currentWidth = Math.abs(this._getCurrentDrawerWidth());
+        var isOpen = this.isLeftOpen || this.isRightOpen;
+        if (isOpen && gestureState.dx === 0) return this._handleMainBoardPress();
+        if (currentWidth === this.MAX_DX) return this._drawerDidOpen();
+        if (currentWidth === 0) return this._drawerDidClose();
+
+        if (currentWidth > this.MAX_DX / 2) {
+          this.openDrawer();
+        } else {
+          this.closeDrawer();
+        }
+      }
+    }, {
+      key: "_getCurrentDrawerWidth",
+      value: function _getCurrentDrawerWidth() {
+        return this.isLeftActive ? this.styles.leftDrawer.style.left + this.MAX_DX : this.styles.rightDrawer.style.left - width;
+      }
+    }, {
+      key: "_touchPositionCheck",
+      value: function _touchPositionCheck(gestureState) {
+        var moveX = gestureState.moveX,
+            dx = gestureState.dx,
+            dy = gestureState.dy;
+        var _props3 = this.props,
+            leftDisabled = _props3.leftDisabled,
+            rightDisabled = _props3.rightDisabled;
+        var x0 = moveX;
+        var isOpen = this.isLeftOpen || this.isRightOpen;
+        if (Math.abs(dx) < Math.abs(dy)) return false;
+
+        if (this.isLeftOpen && !leftDisabled && dx < 0 || this.isRightOpen && !rightDisabled && dx > 0) {
+          return true;
+        }
+
+        if (!leftDisabled && this.isLeft && x0 <= width * 0.2 && !isOpen && dx > 0) {
+          this.isLeftActive = true;
+          return true;
+        }
+
+        if (!rightDisabled && this.isRight && x0 >= this.MAX_DX && !isOpen && dx < 0) {
+          this.isRightActive = true;
+          return true;
+        }
+
+        return false;
+      }
+    }, {
+      key: "closeDrawer",
+      value: function closeDrawer() {
+        var _this2 = this;
+
+        if (this.inAnimation) return;
+        this.inAnimation = true;
+        var _props4 = this.props,
+            duration = _props4.duration,
+            _props4$easingFunc = _props4.easingFunc,
+            easingFunc = _props4$easingFunc === undefined ? function (t) {
+          return t;
+        } : _props4$easingFunc;
+
+        var left = this._getCurrentDrawerWidth();
+
+        new _Animation2.default({
+          start: left,
+          end: 0,
+          duration: duration,
+          easingFunc: easingFunc,
+          onAnimationFrame: function onAnimationFrame(val) {
+            _this2._updateNativeStyles(val);
+          },
+          onAnimationEnd: this._drawerDidClose
+        }).start();
+      }
+    }, {
+      key: "closeLeftDrawer",
+      value: function closeLeftDrawer() {
+        var disabled = this.props.disabled || this.props.leftDisabled;
+        if (!this.isLeft || !this.isLeftOpen || disabled) return;
+        this.closeDrawer();
+      }
+    }, {
+      key: "closeRightDrawer",
+      value: function closeRightDrawer() {
+        var disabled = this.props.disabled || this.props.rightDisabled;
+        if (!this.isRight || !this.isRightOpen || disabled) return;
+        this.closeDrawer();
+      }
+    }, {
+      key: "openDrawer",
+      value: function openDrawer() {
+        var _this3 = this;
+
+        if (this.inAnimation || this.props.disabled) return;
+        this.inAnimation = true;
+        var _props5 = this.props,
+            duration = _props5.duration,
+            leftDisabled = _props5.leftDisabled,
+            rightDisabled = _props5.rightDisabled,
+            _props5$easingFunc = _props5.easingFunc,
+            easingFunc = _props5$easingFunc === undefined ? function (t) {
+          return t;
+        } : _props5$easingFunc;
+
+        if (!this.isLeftActive && !this.isRightActive) {
+          if (this.isLeft && !leftDisabled) {
+            this.isLeftActive = true;
+          } else if (this.isRight && !rightDisabled) {
+            this.isRightActive = true;
+          }
+        }
+
+        var left = this._getCurrentDrawerWidth();
+
+        var maxWidth = this.MAX_DX;
+
+        if (this.isRightActive || !this.isLeft) {
+          maxWidth *= -1;
+        }
+
+        this.props.showMask && !this.state.showMask && this.setState({
+          showMask: true
+        });
+        new _Animation2.default({
+          start: left,
+          end: maxWidth,
+          duration: duration,
+          easingFunc: easingFunc,
+          onAnimationFrame: function onAnimationFrame(val) {
+            _this3._updateNativeStyles(val);
+          },
+          onAnimationEnd: this._drawerDidOpen
+        }).start();
+      }
+    }, {
+      key: "openLeftDrawer",
+      value: function openLeftDrawer() {
+        var isOpen = this.isLeftOpen || this.isRightOpen;
+        var disabled = this.props.disabled || this.props.leftDisabled;
+        if (!this.isLeft || isOpen || disabled) return;
+        this.isLeftActive = true;
+        this.openDrawer();
+      }
+    }, {
+      key: "openRightDrawer",
+      value: function openRightDrawer() {
+        var isOpen = this.isLeftOpen || this.isRightOpen;
+        var disabled = this.props.disabled || this.props.rightDisabled;
+        if (!this.isRight || isOpen || disabled) return;
+        this.isRightActive = true;
+        this.openDrawer();
+      }
+    }, {
+      key: "_drawerDidOpen",
+      value: function _drawerDidOpen() {
+        this.inAnimation = false;
+
+        if (this.isLeftActive) {
+          this.isLeftOpen = true;
+          this.props.onLeftDrawerOpen && this.props.onLeftDrawerOpen();
+        } else {
+          this.isRightOpen = true;
+          this.props.onRightDrawerOpen && this.props.onRightDrawerOpen();
+        }
+
+        this.props.onDrawerOpen && this.props.onDrawerOpen();
+      }
+    }, {
+      key: "_drawerDidClose",
+      value: function _drawerDidClose() {
+        var _this4 = this;
+
+        this.inAnimation = false;
+        this.state.showMask && this.setState({
+          showMask: false
+        }, function () {
+          if (_this4.isLeftActive) {
+            _this4.isLeftOpen = false;
+            _this4.isLeftActive = false;
+            _this4.props.onLeftDrawerClose && _this4.props.onLeftDrawerClose();
+          } else {
+            _this4.isRightOpen = false;
+            _this4.isRightActive = false;
+            _this4.props.onRightDrawerClose && _this4.props.onRightDrawerClose();
+          }
+
+          _this4.props.onDrawerClose && _this4.props.onDrawerClose();
+        });
+      }
+    }, {
+      key: "_updateNativeStyles",
+      value: function _updateNativeStyles(dx) {
+        this.styles.leftDrawer.style.left = -this.MAX_DX + dx;
+        this.styles.leftDrawer.style.right = width - dx;
+        this.styles.rightDrawer.style.left = width + dx;
+        this.styles.rightDrawer.style.right = -this.MAX_DX - dx;
+        this.styles.mask.style.backgroundColor = "rgba(0, 0, 0,\n      " + (Math.abs(dx) / this.MAX_DX * this.MAX_ALPHA).toFixed(2) + ")";
+        this._leftDrawer && this._leftDrawer.setNativeProps(this.styles.leftDrawer);
+        this._rightDrawer && this._rightDrawer.setNativeProps(this.styles.rightDrawer);
+        this._mask && this._mask.setNativeProps(this.styles.mask);
+
+        if (this.props.type === types.Default || dx === 0) {
+          this.styles.main.style.left = dx;
+          this.styles.main.style.right = -dx;
+          this._main && this._main.setNativeProps(this.styles.main);
+        }
+      }
+    }, {
+      key: "_handleMainBoardPress",
+      value: function _handleMainBoardPress() {
+        if (this.inAnimation) return;
+        this.closeDrawer();
+      }
+    }, {
+      key: "_bindDrawerRef",
+      value: function _bindDrawerRef(component) {
+        return _react3.default.cloneElement(component, {
+          drawer: this
+        });
+      }
+    }, {
+      key: "_mainRefBind",
+      value: function _mainRefBind(main) {
+        this._main = main;
+      }
+    }, {
+      key: "_maskRefBind",
+      value: function _maskRefBind(mask) {
+        this._mask = mask;
+      }
+    }, {
+      key: "_leftDrawerRefBind",
+      value: function _leftDrawerRefBind(drawer) {
+        this._leftDrawer = drawer;
+      }
+    }, {
+      key: "_rightDrawerRefBind",
+      value: function _rightDrawerRefBind(drawer) {
+        this._rightDrawer = drawer;
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var customStyles = this.props.customStyles;
+        var drawerContent = this.props.drawerContent ? this._bindDrawerRef(this.props.drawerContent) : null;
+        var leftDrawerContent = this.props.leftDrawerContent ? this._bindDrawerRef(this.props.leftDrawerContent) : null;
+        var rightDrawerContent = this.props.rightDrawerContent ? this._bindDrawerRef(this.props.rightDrawerContent) : null;
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.container,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 397
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            _extends({
+              ref: this._mainRefBind,
+              style: [customStyles.main, styles.absolute]
+            }, this._pan.panHandlers, {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 398
+              }
+            }),
+            this.props.children,
+            this.state.showMask && _react3.default.createElement(_reactNative.View, {
+              ref: this._maskRefBind,
+              style: [customStyles.mask, styles.mask, styles.absolute],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 404
+              }
+            })
+          ),
+          this.isLeft && _react3.default.createElement(
+            _reactNative.View,
+            {
+              ref: this._leftDrawerRefBind,
+              style: [this.isLeft ? customStyles.drawer : {}, customStyles.leftDrawer, styles.absolute],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 409
+              }
+            },
+            leftDrawerContent ? leftDrawerContent : drawerContent
+          ),
+          this.isRight && _react3.default.createElement(
+            _reactNative.View,
+            {
+              ref: this._rightDrawerRefBind,
+              style: [this.isRight ? customStyles.drawer : {}, customStyles.rightDrawer, styles.absolute],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 416
+              }
+            },
+            rightDrawerContent ? rightDrawerContent : drawerContent
+          )
+        );
+      }
+    }]);
+
+    return Drawer;
+  }(_react2.Component), _class.positions = positions, _class.types = types, _class.defaultProps = {
+    disabled: false,
+    leftDisabled: false,
+    rightDisabled: false,
+    drawerWidth: 300,
+    duration: 160,
+    drawerPosition: positions.Left,
+    type: types.Default,
+    showMask: true,
+    maskAlpha: 0.4,
+    customStyles: {},
+    startCapture: false,
+    moveCapture: false
+  }, _class.propTypes = {
+    disabled: _propTypes2.default.bool,
+    leftDisabled: _propTypes2.default.bool,
+    rightDisabled: _propTypes2.default.bool,
+    drawerContent: _propTypes2.default.object,
+    drawerWidth: _propTypes2.default.number,
+    duration: _propTypes2.default.number,
+    drawerPosition: _propTypes2.default.oneOf(Object.values(positions)),
+    type: _propTypes2.default.oneOf(Object.values(types)),
+    showMask: _propTypes2.default.bool,
+    maskAlpha: _propTypes2.default.number,
+    customStyles: _propTypes2.default.object,
+    onDrawerClose: _propTypes2.default.func,
+    onLeftDrawerClose: _propTypes2.default.func,
+    onRightDrawerClose: _propTypes2.default.func,
+    onDrawerOpen: _propTypes2.default.func,
+    onLeftDrawerOpen: _propTypes2.default.func,
+    onRightDrawerOpen: _propTypes2.default.func,
+    startCapture: _propTypes2.default.bool,
+    moveCapture: _propTypes2.default.bool,
+    easingFunc: _propTypes2.default.func,
+    responderNegotiate: _propTypes2.default.func
+  }, _temp));
+
+  exports.default = Drawer;
+
+  var styles = _reactNative.StyleSheet.create({
+    container: {
+      flex: 1
+    },
+    absolute: {
+      position: 'absolute'
+    },
+    mask: {
+      left: 0,
+      top: 0,
+      bottom: 0,
+      right: 0
+    }
+  });
+});

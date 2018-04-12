@@ -1,0 +1,50 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Animation;
+
+  function Animation(option) {
+    this.animate = this.animate.bind(this);
+    this.start = this.start.bind(this);
+    this.option = option;
+  }
+
+  Animation.prototype.animate = function (now) {
+    var _option = this.option,
+        start = _option.start,
+        end = _option.end,
+        duration = _option.duration,
+        onAnimationFrame = _option.onAnimationFrame,
+        onAnimationEnd = _option.onAnimationEnd,
+        _option$easingFunc = _option.easingFunc,
+        easingFunc = _option$easingFunc === undefined ? this.defaultEasing : _option$easingFunc;
+    var currentDuration = now - this.startTime;
+
+    if (currentDuration >= duration) {
+      onAnimationFrame(end);
+      onAnimationEnd();
+      return;
+    }
+
+    var value = void 0;
+
+    if (start > end) {
+      value = start - (start - end) * easingFunc(currentDuration / duration);
+    } else {
+      value = (end - start) * easingFunc(currentDuration / duration) + start;
+    }
+
+    onAnimationFrame(value);
+    requestAnimationFrame(this.animate);
+  };
+
+  Animation.prototype.start = function (time) {
+    this.startTime = new Date();
+    this.animate(time || this.startTime);
+  };
+
+  Animation.prototype.defaultEasing = function (t) {
+    return t;
+  };
+});
